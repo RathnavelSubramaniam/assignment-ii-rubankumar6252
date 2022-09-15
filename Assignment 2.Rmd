@@ -1,0 +1,174 @@
+---
+title: "Machine Learning Assignment 2"
+author: "Ruban kumar"
+date: "2022-09-14"
+output: html_document
+---
+
+
+1. In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results.rnorm
+
+a.	Using the rnorm() function, create a vector, “x”, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X
+
+
+```{r}
+set.seed(1)
+x <- rnorm(100)
+x
+```
+create new vector called x and using rnorm function to include the number of observation is 100 values
+
+
+b.	Using the rnorm() function, create a vector, “eps”, containing 100 observations drawn from a N(0,0.25) distribution.
+
+
+```{r}
+eps = rnorm(100, 0, 0.25)
+eps
+```
+eps is a new vector using rnorm function with 100 number of observations and mean is 0 then standard division is 0.25.
+
+
+c.	Using “x” and “eps”, generate a vector “y” according to the model
+Y=−1+0.5X+ε.
+What is the length of the vector “y” ? What are the values of β0 and β1 in this linear model ?
+
+
+```{r}
+y = -1 + 0.5 * x + eps
+length(y)
+```
+model, Y=−1+0.5X+ε. The values are β0 = -1 and β1 = 0.5
+
+
+
+d.	Create a scatterplot displaying the relationship between “x” and “y”. Comment on what you observe.
+
+
+```{r}
+plot(x, y)
+```
+This plot is look linear model.
+
+
+e.	Fit a least squares linear model to predict “y” using “x”. Comment on the model obtained. How do β^0 and β^1 compare to β0 and β1 ?
+
+
+```{r}
+fit = lm(y ~ x)
+summary(fit)
+```
+
+
+
+f.	Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() function to create an appropriate legend.
+
+
+```{r}
+plot(x, y)
+abline(fit, col = "red")
+abline(-1, 0.5, col = "blue")
+legend("topleft", c("Least square", "Regression"), col = c("red", "blue"), lty = c(1, 1))
+```
+
+
+2.  This problem involves the “Boston” data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+
+```{r}
+library(MASS)
+```
+```{r}
+Boston
+```
+
+
+a.	For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
+
+
+```{r}
+attach(Boston)
+```
+
+
+```{r}
+zn <- lm(crim ~ zn)
+summary(zn)
+```
+
+```{r}
+indus <- lm(crim ~ indus)
+summary(indus)
+```
+
+```{r}
+chas <- lm(crim ~ chas)
+summary(chas)
+```
+
+```{r}
+nox <- lm(crim ~ nox)
+summary(nox)
+```
+
+```{r}
+rm <- lm(crim ~ rm)
+summary(rm)
+```
+
+```{r}
+age <- lm(crim ~ age)
+summary(age)
+```
+
+```{r}
+dis <- lm(crim ~ dis)
+summary(dis)
+```
+
+```{r}
+rad <- lm(crim ~ rad)
+summary(rad)
+```
+
+```{r}
+tax <- lm(crim ~ tax)
+summary(tax)
+```
+
+```{r}
+ptratio <- lm(crim ~ ptratio)
+summary(ptratio)
+```
+
+```{r}
+black <- lm(crim ~ black)
+summary(black)
+```
+
+```{r}
+lstat <- lm(crim ~ lstat)
+summary(lstat)
+```
+
+```{r}
+medv <- lm(crim ~ medv)
+summary(medv)
+```
+
+The p value is less then 0.05 expect chas so there is statistically predicted
+
+
+b.	Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0:βj=0 ?
+
+
+```{r}
+fit.bos <- lm(crim ~ .,Boston)
+fit.bos
+```
+```{r}
+summary(fit.bos)
+```
+
+reject the null hypothesis “zn”, “dis”, “rad”, “black” and “medv”.
+
